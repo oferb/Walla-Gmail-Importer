@@ -3,6 +3,8 @@ import chardet
 import codecs
 from pprint import pprint
 import os
+import sys
+
 
 def walla_to_gmail_import(input_filename, print_debug=False):
     # get encoding
@@ -65,7 +67,11 @@ def walla_to_gmail_import(input_filename, print_debug=False):
     
     return names, emails
 
-if __name__ == "__main__":
-    walla_to_gmail_import(os.path.join(os.path.dirname(__file__), 'walla_contacts.txt'))
-    
-       
+#if __name__ == "__main__":
+#    walla_to_gmail_import(os.path.join(os.path.dirname(__file__), 'walla_contacts.txt'))
+sys.stdout=codecs.getwriter('utf-8')(sys.stdout)
+if len(sys.argv) == 1:
+    print('Please run as \'python import_test.py txt_filename_including_path > gmail_contacts.txt\'')
+
+if len(sys.argv) > 1:
+    walla_to_gmail_import(sys.argv[1])
